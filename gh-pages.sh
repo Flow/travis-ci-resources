@@ -3,7 +3,7 @@
 function die_with() { echo "$*" >&2; exit 1; }
 
 echo "Checking if commit is a pull request"
-if [ $TRAVIS_PULL_REQUEST == false ]; then die_with "Skipping deployment for pull request!"; fi
+if [ $TRAVIS_PULL_REQUEST == true ]; then die_with "Skipping deployment for pull request!"; fi
 
 echo "Changing directory to ${HOME} and configuring git"
 cd "$HOME" || die_with "Failed to switch to ${HOME} directory!"
