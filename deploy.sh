@@ -41,7 +41,8 @@ echo "Building, generating, and deploying artifacts"
 mvn package site javadoc:jar source:jar gpg:sign deploy --settings $HOME/build/flow/travis/settings.xml -Dgpg.name=ED997FF2 -Dgpg.passphrase=$SIGNING_PASSWORD -Dgpg.publicKeyring=$HOME/build/flow/travis/pubring.gpg -Dgpg.secretKeyring=$HOME/build/flow/travis/secring.gpg || die_with "Failed to build/deploy artifacts!"
 
 echo "Updating the project version in build.gradle and README.md"
-sed -ri "s/"`echo $CURRENT_VERSION | sed 's/\./\\\\./g'`"/$RELEASE_VERSION/g" build.gradle README.md || die_with "Failed to update the project version in build.gradle/README.md!"
+sed -ri "s/"`echo $CURRENT_VERSION | sed 's/\./\\\\./g'`"/$RELEASE_VERSION/g" README.md || die_with "Failed to update the project version in README.md!"
+sed -ri "s/"`echo $CURRENT_VERSION | sed 's/\./\\\\./g'`"/$RELEASE_VERSION/g" build.gradle
 
 echo "Renaming the commit to skip the CI build loop"
 git add -u . && git commit --amend -m "Release version $RELEASE_VERSION [ci skip]" || die_with "Failed to rename the commit"
