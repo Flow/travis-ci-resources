@@ -14,8 +14,8 @@ git clone --quiet --single-branch -b gh-pages https://${GITHUB_TOKEN}@github.com
 
 echo "Copying apidocs to gh-pages branch root"
 cd gh-pages && rm -rf . || die_with "Failed to remove old Javadocs!"
-if [ -d "${TRAVIS_BUILD_DIR}/target/apidocs" ]; then cp -Rf ${TRAVIS_BUILD_DIR}/target/apidocs/* . || die_with "Failed to copy apidocs to target directory!"; fi
-if [ -d "${TRAVIS_BUILD_DIR}/target/site/apidocs" ]; then cp -Rf ${TRAVIS_BUILD_DIR}/target/site/apidocs/* . || die_with "Failed to copy apidocs to target directory"; fi
+if [ -d "${TRAVIS_BUILD_DIR}/target/apidocs" ]; then cp -Rf ${TRAVIS_BUILD_DIR}/target/apidocs/* .;
+elif [ -d "${TRAVIS_BUILD_DIR}/target/site/apidocs" ]; then cp -Rf ${TRAVIS_BUILD_DIR}/target/site/apidocs/* . || die_with "Failed to copy apidocs to target directory"; fi
 
 echo "Adding, committing, and pushing apidocs to gh-pages branch"
 git add -f .
