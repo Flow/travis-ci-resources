@@ -12,6 +12,9 @@ function die_unless_xmllint_has_xpath() {
 echo "Checking if commit is a pull request"
 if [ $TRAVIS_PULL_REQUEST == true ]; then die_with "Skipping deployment for pull request!"; fi
 
+echo "Checking if commit is from develop branch"
+if [ $TRAVIS_BRANCH == develop ]; then die_with "Skipping deployment for develop branch!"; fi
+
 echo "Configuring git credentials"
 git config --global user.email "travis@travis-ci.org" && git config --global user.name "Travis" || die_with "Failed to configure git credentials!"
 
