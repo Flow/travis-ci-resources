@@ -38,7 +38,7 @@ git fetch origin refs/heads/release/$RELEASE_VERSION:refs/heads/release/$RELEASE
 #TARGET_COMMIT=`git rev-parse HEAD` git filter-branch -f --commit-filter 'if [ "$GIT_COMMIT" = "$TARGET_COMMIT" ]; then git_commit_non_empty_tree "$@"; else skip_commit "$@"; fi' -- HEAD^^..HEAD --not release/$RELEASE_VERSION
 
 echo "Building, generating, and deploying artifacts"
-mvn package -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7} site javadoc:jar source:jar gpg:sign deploy --settings $HOME/build/flow/travis/settings.xml -Dgpg.keyname=ED997FF2 -Dgpg.passphrase=$SIGNING_PASSWORD -Dgpg.publicKeyring=$HOME/build/flow/travis/pubring.gpg -Dgpg.secretKeyring=$HOME/build/flow/travis/secring.gpg -Dtag=$RELEASE_VERSION || die_with "Failed to build/deploy artifacts!"
+mvn package -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7} site javadoc:jar source:jar gpg:sign deploy --settings $HOME/build/flow/travis/settings.xml -Dgpg.passphrase=$SIGNING_PASSWORD -Dgpg.publicKeyring=$HOME/build/flow/travis/pubring.gpg -Dgpg.secretKeyring=$HOME/build/flow/travis/secring.gpg -Dtag=$RELEASE_VERSION || die_with "Failed to build/deploy artifacts!"
 
 #echo "Updating the project version in build.gradle and README.md"
 #sed -ri "s/"`echo $CURRENT_VERSION | sed 's/\./\\\\./g'`"/$RELEASE_VERSION/g" README.md || die_with "Failed to update the project version in README.md!"
