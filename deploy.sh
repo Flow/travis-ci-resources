@@ -42,6 +42,5 @@ fi
 echo "Tagging the release with git"
 git fetch origin refs/heads/release/$RELEASE_VERSION:refs/heads/release/$RELEASE_VERSION
 git tag -f $RELEASE_VERSION && git push -q --tags https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG.git || die_with "Failed to create tag $RELEASE_VERSION!"
-echo $RELEASE_VERSION > $TRAVIS_BUILD_DIR/version.txt
 
 echo "Release cycle completed. Happy developing!"
